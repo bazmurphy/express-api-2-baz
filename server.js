@@ -27,6 +27,16 @@ app.get('/', (request, response) => {
     response.sendFile(__dirname + '/index.html')
 })
 
+app.get('/api/:rapperName', (request, response) => {
+    // console.log(request.params.rapperName)
+    const rappersName = request.params.rapperName.toLowerCase()
+    if (rappers[rappersName]) {
+        response.json(rappers[rappersName])
+    } else {
+        response.json(rappers['dylan'])
+    }
+})
+
 app.get('/api/:name', (request, response) => {
     const rapperName = request.params.name.toLowerCase()
 
@@ -35,7 +45,6 @@ app.get('/api/:name', (request, response) => {
     } else {
         response.json(rappers['unknown'])
     }
-
 })
 
 app.listen(process.env.PORT || PORT, () => {
